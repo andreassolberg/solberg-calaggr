@@ -18,8 +18,13 @@ require("./middag.php");
 $path = dirname(dirname(dirname(__FILE__))) . '/_config/';
 // echo $path; exit;
 
+
 $credentials = json_decode(file_get_contents($path . 'credentials.js'), true);
 $calendars = json_decode(file_get_contents($path . 'calendars.js'), true);
+
+if (isset($_REQUEST['test'])) {
+	$calendars = json_decode(file_get_contents($path . 'calendars-test.js'), true);
+}
 
 // echo '<pre>'; print_r($credentials); print_r($calendars); exit;
 // echo json_encode($calendars); exit;
