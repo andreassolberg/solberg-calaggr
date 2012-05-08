@@ -86,8 +86,7 @@ foreach($result AS $event) {
 }
 
 $middag = new Middag();
-
-$middager = $middag->get();
+$middager = $middag->get($credentials["rtm"]);
 
 
 // print_r($structured);
