@@ -59,7 +59,7 @@ $currentepoch = strtotime('+1 day', strtotime($current));
 $current = date('Y-m-d', $currentepoch);
 $structured[$current] = array('text' => 'I morgen (' . date('l', $currentepoch) . ')', 'middag' => array(), 'events' => array());
 
-for ($i = 0; $i < 5; $i++) {
+for ($i = 0; $i < 10; $i++) {
 	$currentepoch = strtotime('+1 day', strtotime($current));
 	$current = date('Y-m-d', $currentepoch);
 	$structured[$current] = array('text' => date('l', $currentepoch), 'middag' => array(), 'events' => array());
