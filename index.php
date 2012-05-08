@@ -81,7 +81,7 @@ foreach($result AS $event) {
 		}
 		
 	} else {
-		if ($event['dtstartDate'] > $today && ($event['dtstartEpoch'] - time() > 3600*24*30)) {
+		if ($event['dtstartDate'] > $today && ($event['dtstartEpoch'] - time() < 3600*24*30)) {
 			$structured['future']['events'][] = $event;	
 		}
 		
@@ -91,6 +91,15 @@ foreach($result AS $event) {
 $middag = new Middag();
 $middager = $middag->get($credentials["rtm"]);
 
+foreach($middager AS $m) {
+	if (isset($m["date"])) {
+		if (isset($structured[$m["date"]])) {
+			$structured[$m["date"]]['middag'][] = $m;
+		} else {
+			$structured['future']['middag'][] = $m;
+		}
+	}
+}
 
 // print_r($structured);
 if (!empty($_GET['debug'])){

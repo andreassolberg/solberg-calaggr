@@ -40,6 +40,8 @@ class Middag {
 		$frob = $cred["frob"];
 		$token = $cred["token"];
 
+		// print_r($cred); exit;
+
 		$args = array(
 			'auth_token'	=> $token,
 			'format' => 'json',
@@ -70,6 +72,8 @@ class Middag {
 
 		}
 		usort($data, "cmp");
+
+		// echo '<pre>'; print_r($data);
 
 		return $data;
 	}
