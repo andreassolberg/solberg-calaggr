@@ -51,6 +51,7 @@ foreach($calendars AS $key => $cal) {
 
 $structured = array();
 
+$today = date('Y-m-d');
 $current = date('Y-m-d');
 $structured[$current] = array('text' => 'I dag (' . date('l') . ')', 'middag' => array(), 'events' => array());
 
@@ -80,7 +81,10 @@ foreach($result AS $event) {
 		}
 		
 	} else {
-		$structured['future']['events'][] = $event;
+		if ($event['dtstartDate'] > $today && ($event['dtstartEpoch'] - time() > 3600*24*30)) {
+			$structured['future']['events'][] = $event;	
+		}
+		
 	}
 }
 
