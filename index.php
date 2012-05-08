@@ -13,8 +13,6 @@ require("./scaldav.php");
 require("./middag.php");
 
 
-
-
 $path = dirname(dirname(dirname(__FILE__))) . '/_config/';
 // echo $path; exit;
 
@@ -46,6 +44,8 @@ foreach($calendars AS $key => $cal) {
 	
 }
 
+// echo '<pre>RESULT:'; print_r($result); //exit;
+
 // echo '<pre>'; print_r($result); exit;
 
 
@@ -66,8 +66,7 @@ for ($i = 0; $i < 5; $i++) {
 
 $structured['future'] = array('text' => 'Senere', 'middag' => array(), 'events' => array());
 
-// echo '<pre>RESULT:';
-// print_r($result);
+
 
 foreach($result AS $event) {
 	if (!isset($event['dtstartDate'])) continue;

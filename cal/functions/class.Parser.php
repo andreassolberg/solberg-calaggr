@@ -104,24 +104,25 @@ class Parser {
 				$tmp2 = explode(";", $tmp[0]);
 				$key = $tmp2[0]; #want the first string before either a colon or semicolon
 				//echo "key:$key\n";
-
+				// echo '<pre>';
 				
 				switch ($key){
 					case 'BEGIN':
 						$type = trim(ucfirst(strtolower($tmp[1])));
 
-						//echo "type:$type:\n";
+						// echo "type:$type:\n";
 						
 						if ($type == 'Vcalendar') {
 							if (!is_object($this->cal)) $this->cal = new Vcalendar; # echo "Make vcal obj\n";
 							$obj = $this->cal;
 							$obj_stack[] = $obj;
-							# echo "BEGIN: make new obj of type ".get_class($obj)." and push it onto the stack\n";
+							//echo "BEGIN: make new obj of type ".get_class($obj)." and push it onto the stack\n";
 						} elseif (in_array($type, array('Vtimezone','Daylight','Standard','Vevent','Vtodo','Vfreebusy'))) {
 							$obj = new $type; # 
 							//echo "Establishing a new " . $type;
+							// print_r($obj);
 							$obj_stack[] = $obj;
-							# echo "BEGIN: make new obj of type ".get_class($obj)." and push it onto the stack\n";
+							// echo "<pre>BEGIN: make new obj of type ".get_class($obj)." and push it onto the stack\n";
 						} else {
 							# Handle BEGIN for undefined object types
 							# Parser delegates further parsing to the object
@@ -142,7 +143,13 @@ class Parser {
 						
 						switch (get_class($obj)){
 							case 'Vtimezone': $this->tz_list[$obj->tzid["value"]] = $obj; break;
-							case 'Vevent': $this->event_list[$obj->uid["value"]] = $obj; break;
+							case 'Vevent': 
+								$key = rand(100000, 999999);
+								if (!empty($obj->uid)) {
+									$key = $obj->uid["value"];
+								}
+								$this->event_list[$key] = $obj; 
+								break;
 							case 'Vtodo': $this->todo_list[] = $obj; break;
 							case 'Vfreebusy': 
 								$this->freebusy_list[] = $obj; 
